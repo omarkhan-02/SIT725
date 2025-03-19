@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Calculator</title>
+</head>
+<body>
+    <h1>Square Calculator</h1>
+    <input type="number" id="numberInput" placeholder="Enter a number">
+    <button onclick="calculateSquare()">Calculate Square</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateSquare() {
+            const number = document.getElementById('numberInput').value;
+            if (!number) {
+                document.getElementById('result').innerText = 'Please enter a number.';
+                return;
+            }
+
+            fetch(`http://localhost:3000/square/${number}`) // Update this URL if deployed
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Invalid number or server error');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('result').innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = 'Error: ' + error.message;
+                });
+        }
+    </script>
+</body>
+</html>
