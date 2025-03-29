@@ -5,101 +5,69 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Configure CORS properly
-const corsOptions = {
-  origin: '*', // Allow all origins for development
-  methods: 'GET,POST',
-  allowedHeaders: 'Content-Type',
-};
-
-app.use(cors(corsOptions));
-app.use(express.json()); // Parse JSON request bodies
+// CORS Configuration
+app.use(cors());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve the index file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Route to calculate the square of a number
-app.get('/square/:number', (req, res) => {
-  const number = parseFloat(req.params.number);
-  if (isNaN(number)) {
-    return res.status(400).send('Invalid number');
-  }
-
-  const square = number * number;
-  res.json({ number, square });
+// Square route
+app.get('/square/:num1', (req, res) => {
+    const num1 = parseFloat(req.params.num1);
+    if (isNaN(num1)) {
+        return res.status(400).json({ error: 'Invalid number' });
+    }
+    res.json({ result: num1 * num1 });
 });
 
-// Route to add two numbers
+// Addition route
 app.get('/add/:num1/:num2', (req, res) => {
-  const num1 = parseFloat(req.params.num1);
-  const num2 = parseFloat(req.params.num2);
-
-  if (isNaN(num1) || isNaN(num2)) {
-    return res.status(400).send('Invalid numbers');
-  }
-
-  const sum = num1 + num2;
-  res.json({ num1, num2, sum });
+    const num1 = parseFloat(req.params.num1);
+    const num2 = parseFloat(req.params.num2);
+    if (isNaN(num1) || isNaN(num2)) {
+        return res.status(400).json({ error: 'Invalid numbers' });
+    }
+    res.json({ result: num1 + num2 });
 });
 
-// Route to subtract two numbers
+// Subtraction route
 app.get('/subtract/:num1/:num2', (req, res) => {
-  const num1 = parseFloat(req.params.num1);
-  const num2 = parseFloat(req.params.num2);
-
-  if (isNaN(num1) || isNaN(num2)) {
-    return res.status(400).send('Invalid numbers');
-  }
-
-  const difference = num1 - num2;
-  res.json({ num1, num2, difference });
+    const num1 = parseFloat(req.params.num1);
+    const num2 = parseFloat(req.params.num2);
+    if (isNaN(num1) || isNaN(num2)) {
+        return res.status(400).json({ error: 'Invalid numbers' });
+    }
+    res.json({ result: num1 - num2 });
 });
 
-// Route to multiply two numbers
+// Multiplication route
 app.get('/multiply/:num1/:num2', (req, res) => {
-  const num1 = parseFloat(req.params.num1);
-  const num2 = parseFloat(req.params.num2);
-
-  if (isNaN(num1) || isNaN(num2)) {
-    return res.status(400).send('Invalid numbers');
-  }
-
-  const product = num1 * num2;
-  res.json({ num1, num2, product });
+    const num1 = parseFloat(req.params.num1);
+    const num2 = parseFloat(req.params.num2);
+    if (isNaN(num1) || isNaN(num2)) {
+        return res.status(400).json({ error: 'Invalid numbers' });
+    }
+    res.json({ result: num1 * num2 });
 });
 
-// Route to divide two numbers
+// Division route
 app.get('/divide/:num1/:num2', (req, res) => {
-  const num1 = parseFloat(req.params.num1);
-  const num2 = parseFloat(req.params.num2);
-
-  if (isNaN(num1) || isNaN(num2)) {
-    return res.status(400).send('Invalid numbers');
-  }
-
-  if (num2 === 0) {
-    return res.status(400).send('Cannot divide by zero');
-  }
-
-  const quotient = num1 / num2;
-  res.json({ num1, num2, quotient });
+    const num1 = parseFloat(req.params.num1);
+    const num2 = parseFloat(req.params.num2);
+    if (isNaN(num1) || isNaN(num2)) {
+        return res.status(400).json({ error: 'Invalid numbers' });
+    }
+    if (num2 === 0) {
+        return res.status(400).json({ error: 'Cannot divide by zero' });
+    }
+    res.json({ result: num1 / num2 });
 });
 
-// POST route for addition (optional)
-app.post('/add', (req, res) => {
-  const { num1, num2 } = req.body;
-
-  if (isNaN(num1) || isNaN(num2)) {
-    return res.status(400).send('Invalid numbers');
-  }
-
-  const sum = num1 + num2;
-  res.json({ num1, num2, sum });
-});
-
+// Start server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
