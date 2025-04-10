@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIT 725 Task3.2P</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .brand-logo img { height: 50px; margin-right: 10px; }
+        .nav-wrapper { padding: 0 20px; }
+        body { background-color: #e3f2fd; }
+        .header-container { background-color: #607d8b; padding: 50px; text-align: center; color: white; }
+        .header-container h1 { font-weight: bold; }
+        .card img { height: 200px; object-fit: cover; }
+    </style>
+</head>
+<body>
+    <nav class="blue-grey darken-3">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" style="display: flex; align-items: center;">
+                <img src="dope.png" alt="Profile">
+                SIT 725
+            </a>
+            <ul class="right hide-on-med-and-down"><li><a href="#">GitHub</a></li></ul>
+        </div>
+    </nav>
+    <div class="header-container">
+        <h1>Welcome to SIT 725 Task4.2P</h1>
+        <p>Explore our premium collection of shoes tailored for style and comfort.</p>
+        <button data-target="modal1" class="btn modal-trigger">Sign Up</button>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m4"><div class="card"><div class="card-image"><img src="sneaker.png" alt="Sneakers"></div><div class="card-content"><span class="card-title">Sneakers</span><p>Step into comfort with our stylish and durable sneakers.</p></div></div></div>
+            <div class="col s12 m4"><div class="card"><div class="card-image"><img src="sports.png" alt="Sports Shoes"></div><div class="card-content"><span class="card-title">Sports Shoes</span><p>Perfect for athletes and active lifestyles.</p></div></div></div>
+            <div class="col s12 m4"><div class="card"><div class="card-image"><img src="boots.png" alt="Boots"></div><div class="card-content"><span class="card-title">Boots</span><p>Stay rugged and stylish with our premium boots.</p></div></div></div>
+        </div>
+    </div>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Register</h4>
+            <form>
+                <div class="input-field"><input id="first_name" type="text" class="validate"><label for="first_name">First Name</label></div>
+                <div class="input-field"><input id="last_name" type="text" class="validate"><label for="last_name">Last Name</label></div>
+                <div class="input-field"><input id="email" type="email" class="validate"><label for="email">Email</label></div>
+                <div class="input-field"><input id="password" type="password" class="validate"><label for="password">Password</label></div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer"><a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalElems = document.querySelectorAll('.modal');
+            M.Modal.init(modalElems);
+        });
+    </script>
+</body>
+</html>
