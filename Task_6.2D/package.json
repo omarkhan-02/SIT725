@@ -1,0 +1,13 @@
+{
+    "name": "temp-convertor",
+    "version": "1.0.0",
+    "description": "A simple project to convert temperatures and test using Jest",
+    "main": "convert.js",
+    "scripts": {
+      "test": "jest"
+    },
+    "devDependencies": {
+      "jest": "^29.7.0"
+    }
+  }
+  
