@@ -1,0 +1,42 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simple Chat</title>
+</head>
+<body>
+  <h1>💬 WebSocket Chat</h1>
+  <input id="message" placeholder="Type your message..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <ul id="chat-box"></ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('chat message', (msg) => {
+      const li = document.createElement('li');
+      li.textContent = msg;
+      document.getElementById('chat-box').appendChild(li);
+    });
+
+    socket.on('system message', (msg) => {
+      const li = document.createElement('li');
+      li.style.color = 'gray';
+      li.textContent = msg;
+      document.getElementById('chat-box').appendChild(li);
+    });
+
+    function sendMessage() {
+      const msgInput = document.getElementById('message');
+      const message = msgInput.value;
+      if (message.trim() !== '') {
+        socket.emit('chat message', message);
+        msgInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
