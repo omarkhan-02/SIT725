@@ -1,17 +1,30 @@
-const { celsiusToFahrenheit, fahrenheitToCelsius } = require('./convert');
+const request = require('supertest');
+const chai = require('chai');
+const expect = chai.expect;
+const app = require('../server'); // make sure this path is correct
 
-test('Convert 0°C to 32°F', () => {
-  expect(celsiusToFahrenheit(0)).toBe(32);
-});
+describe('POST /api/convert', () => {
+  it('should convert valid input to uppercase', async () => {
+    const res = await request(app).post('/api/convert').send({ input: 'hello' });
+    expect(res.status).to.equal(200);
+    expect(res.body.result).to.equal('HELLO');
+  });
 
-test('Convert 100°C to 212°F', () => {
-  expect(celsiusToFahrenheit(100)).toBe(212);
-});
+  it('should return 400 for missing input', async () => {
+    const res = await request(app).post('/api/convert').send({});
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.exist;
+  });
 
-test('Convert 32°F to 0°C', () => {
-  expect(fahrenheitToCelsius(32)).toBeCloseTo(0);
-});
+  it('should return 400 for non-string input', async () => {
+    const res = await request(app).post('/api/convert').send({ input: 123 });
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.exist;
+  });
 
-test('Convert 212°F to 100°C', () => {
-  expect(fahrenheitToCelsius(212)).toBeCloseTo(100);
+  it('should return 500 for forced error input', async () => {
+    const res = await request(app).post('/api/convert').send({ input: 'error' });
+    expect(res.status).to.equal(500);
+    expect(res.body.error).to.equal('Forced error');
+  });
 });

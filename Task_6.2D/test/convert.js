@@ -1,11 +1,7 @@
+function convert(input) {
+  if (input === 'error') throw new Error('Forced error');
+  if (typeof input !== 'string') throw new Error('Input must be a string');
+  return input.toUpperCase(); // Example logic
+}
 
-function celsiusToFahrenheit(celsius) {
-    return (celsius * 9 / 5) + 32;
-  }
-  
-  function fahrenheitToCelsius(fahrenheit) {
-    return (fahrenheit - 32) * 5 / 9;
-  }
-  
-  module.exports = { celsiusToFahrenheit, fahrenheitToCelsius };
-  
+module.exports = convert;

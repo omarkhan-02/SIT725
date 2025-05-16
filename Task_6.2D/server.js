@@ -1,22 +1,29 @@
-function convertTemperature() {
-    const temp = parseFloat(document.getElementById('inputTemp').value);
-    const unit = document.getElementById('unit').value;
-    const resultDisplay = document.getElementById('result');
-  
-    if (isNaN(temp)) {
-      resultDisplay.innerText = "⚠️ Please enter a valid temperature.";
-      return;
-    }
-  
-    let converted, resultText;
-    if (unit === 'C') {
-      converted = (temp * 9 / 5) + 32;
-      resultText = `${temp}°C = ${converted.toFixed(2)}°F`;
-    } else {
-      converted = (temp - 32) * 5 / 9;
-      resultText = `${temp}°F = ${converted.toFixed(2)}°C`;
-    }
-  
-    resultDisplay.innerText = resultText;
+const express = require('express');
+const convert = require('./test/convert');
+
+const app = express();
+app.use(express.json());
+
+app.post('/api/convert', (req, res) => {
+  const { input } = req.body;
+
+  if (typeof input !== 'string') {
+    return res.status(400).json({ error: 'Invalid input type' });
   }
-  
+
+  try {
+    const result = convert(input);
+    res.json({ result });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+module.exports = app;
+
+if (require.main === module) {
+  const PORT = 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:3000`);
+  });
+}
